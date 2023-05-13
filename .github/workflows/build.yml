@@ -1,9 +1,8 @@
-name: Build
+name: Magical Launcher Auto Build
 on:
   push:
-    tags:
-      - 'v*'
-  workflow_dispatch:
+    branches:
+      - master
 
 jobs:
   release:
@@ -51,6 +50,6 @@ jobs:
         with:
           tagName: v0.x # This only works if your workflow triggers on new tags.
           releaseName: 'Magical launcher v__VERSION__' # tauri-action replaces \_\_VERSION\_\_ with the app version.
-          releaseBody: 'See the assets to download and install this version.'
+          releaseBody: ''
           releaseDraft: true
           prerelease: false
