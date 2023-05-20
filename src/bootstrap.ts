@@ -10,7 +10,6 @@ app.mount('#window')
 import { invoke, window, } from '@tauri-apps/api'
 
 invoke('greet', { name: 'World' })
-  // `invoke` 返回的是一个 Promise
   .then((response) => console.log(response))
 
 // window.getCurrent().setAlwaysOnTop(true)
