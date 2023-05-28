@@ -17,17 +17,6 @@ Please go to the  [official website](https://launcher.btlcraft.top) to download 
 - **Instance management** Supports grouping and other functions to easily manage multiple instances
 - **Mod download** You can download mods from Curseforge, Modrinth, FTB directly from the launcher
 
-## 开源协议
-
-该程序在 GPL-3.0 开源协议下发布, 同时附有附加条款.
-
-附加条款 (依据 GPL-3.0 开源协议第七条)
-1. 当您分发该程序的修改版本时, 您必须以一种合理的方式修改该程序的名称或版本号, 以示其与原始版本不同. (依据 [GPL-3.0, 7(c)](./LICENSE#L372-L374))
-
-您需要自行在源码中查找所有与本程序名称相关的词语并替换为您自己程序的名称
-
-2. 您不得移除该程序所显示的版权声明. (依据 [GPL-3.0, 7(b)](./LICENSE#L368-L370))
-
 ## License
 The software is distributed under [GPLv3](https://www.gnu.org/licenses/gpl-3.0.html) with additional terms.
 
