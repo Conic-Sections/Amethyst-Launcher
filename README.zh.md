@@ -1,7 +1,7 @@
 # magical-launcher
 
 [![Magical Launcher Auto Build](https://github.com/Broken-Deer/magical-launcher/actions/workflows/build.yml/badge.svg)](https://github.com/Broken-Deer/magical-launcher/actions/workflows/build.yml)
-[![License](https://img.shields.io/github/license/Rene8028/carpet-iee-addition.svg)](https://www.gnu.org/licenses/quick-guide-gplv3.html)
+[![License](https://img.shields.io/github/license/Rene8028/carpet-iee-addition.svg)](https://www.gnu.org/licenses/quick-guide-GPL-3.0.html)
 ![](https://img.shields.io/badge/V-ME-red)
 ![](https://img.shields.io/badge/WE%20ARE-POOR-yellow)
 
@@ -20,3 +20,13 @@
 - **与 PCL2, HMCL, Bakaxl 联机**。
 - **支持多种账号系统**。内置支持 Microsoft 和 Mojang Yggdrasil API。内置支持 LittleSkin，您也可以自行添加新的第三方验证服务！
 
+## 开源协议
+
+该程序在 GPL-3.0 开源协议下发布, 同时附有附加条款.
+
+附加条款 (依据 GPL-3.0 开源协议第七条)
+1. 当您分发该程序的修改版本时, 您必须以一种合理的方式修改该程序的名称或版本号, 以示其与原始版本不同. (依据 [GPL-3.0, 7(c)](./LICENSE#L372-L374))
+
+您需要自行在源码中查找所有与本程序名称相关的词语并替换为您自己程序的名称
+
+2. 您不得移除该程序所显示的版权声明. (依据 [GPL-3.0, 7(b)](./LICENSE#L368-L370))
