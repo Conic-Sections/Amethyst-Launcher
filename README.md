@@ -27,3 +27,5 @@ You need to find all the words related to the name of this program in the source
 
 
 2. You must not remove the copyright declaration displayed in the software. (Under [GPL-3.0, 7(b)](./LICENSE#L368-L370))
+
+
