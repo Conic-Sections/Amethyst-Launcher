@@ -1,4 +1,4 @@
-# magical-launcher
+# Magical Launcher
 
 [![Magical Launcher Auto Build](https://github.com/Broken-Deer/magical-launcher/actions/workflows/build.yml/badge.svg)](https://github.com/Broken-Deer/magical-launcher/actions/workflows/build.yml)
 [![License](https://img.shields.io/github/license/Rene8028/carpet-iee-addition.svg)](https://www.gnu.org/licenses/quick-guide-GPL-3.0.html)
