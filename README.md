@@ -38,6 +38,8 @@ You need to find all the words related to the name of this program in the source
 
 2. You must not remove the copyright declaration displayed in the software. (Under [GPL-3.0, 7(b)](./LICENSE#L368-L370))
 
+3. If someone signs something of a contractual nature with the recipient and provides a commitment of liability, the licensor and author are not subject to this liability jointly and severally.  (Under [GPL-3.0, 7(b)](./LICENSE#L382-L386))
+
 ## Manual build
 
 Make sure you have completed [prep](https://tauri.app/zh-cn/v1/guides/getting-started/prerequisites) first.

@@ -39,6 +39,8 @@
 
 2. 您不得移除该程序所显示的版权声明. (依据 [GPL-3.0, 7(b)](./LICENSE#L368-L370))
 
+3. 如果您和接收者签了合同性质的东西，并提供责任承诺，则授权人和作者不受此责任连带. (依据[GPL-3.0, 7(b)](./LICENSE#L382-L386))
+
 ## 手动构建
 
 请先确保已完成[预先准备](https://tauri.app/zh-cn/v1/guides/getting-started/prerequisites)。
