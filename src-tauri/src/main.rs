@@ -34,6 +34,8 @@ pub struct Storage {
 
 #[tokio::main]
 async fn main() {
+    std::env::set_var("WEBKIT_DISABLE_DMABUF_RENDERER", "1");
+
     DATA_LOCATION.set(DataLocation::new("test")).unwrap();
     PLATFORM_INFO.set(PlatformInfo::new().await).unwrap();
     HTTP_CLIENT
