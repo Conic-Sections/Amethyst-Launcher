@@ -8,18 +8,64 @@ jobs:
   release:
     permissions:
       contents: write
+    
     strategy:
       fail-fast: false
       matrix:
-        platform: [macos-latest, ubuntu-20.04, windows-latest]
-    runs-on: ${{ matrix.platform }}
+        include:
+        - build: linux
+          os: ubuntu-latest
+          rust: nightly
+          target: x86_64-unknown-linux-musl
+          strip: x86_64-linux-musl-strip
+        - build: stable-x86
+          os: ubuntu-latest
+          rust: stable
+          target: i686-unknown-linux-gnu
+          strip: x86_64-linux-gnu-strip
+          qemu: i386
+        - build: stable-aarch64
+          os: ubuntu-latest
+          rust: stable
+          target: aarch64-unknown-linux-gnu
+          strip: aarch64-linux-gnu-strip
+          qemu: qemu-aarch64
+        - build: stable-powerpc64
+          os: ubuntu-latest
+          rust: stable
+          target: powerpc64-unknown-linux-gnu
+          strip: powerpc64-linux-gnu-strip
+          qemu: qemu-ppc64
+        - build: stable-s390x
+          os: ubuntu-latest
+          rust: stable
+          target: s390x-unknown-linux-gnu
+          strip: s390x-linux-gnu-strip
+          qemu: qemu-s390x
+        - build: macos
+          os: macos-latest
+          rust: nightly
+          target: x86_64-apple-darwin
+        - build: win-msvc
+          os: windows-latest
+          rust: nightly
+          target: x86_64-pc-windows-msvc
+        - build: win-gnu
+          os: windows-latest
+          rust: nightly-x86_64-gnu
+          target: x86_64-pc-windows-gnu
+        - build: win32-msvc
+          os: windows-latest
+          rust: nightly
+          target: i686-pc-windows-msvc
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Install dependencies (ubuntu only)
-        if: matrix.platform == 'ubuntu-20.04'
+        if: matrix.os == 'ubuntu-latest'
         run: |
           sudo apt-get update
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev librsvg2-dev
@@ -53,3 +99,4 @@ jobs:
           releaseBody: ''
           releaseDraft: true
           prerelease: false
+
