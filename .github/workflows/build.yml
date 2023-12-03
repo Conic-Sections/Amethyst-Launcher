@@ -36,7 +36,8 @@ jobs:
       - name: Create GitHub release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh release create $VERSION --draft --title $VERSION
+        run: | 
+          echo "version is: $VERSION" && gh release create $VERSION --draft --title $VERSION
     # outputs:
     #   version: ${{ env.VERSION }}
 
@@ -55,7 +56,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
-        run: gh release upload $VERSION ./1.test --clobber
+        run: |
+          echo "version is: $VERSION" && gh release upload $VERSION ./1.test --clobber
 
 # jobs:
 #   release:
