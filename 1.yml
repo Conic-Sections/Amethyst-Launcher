@@ -349,5 +349,5 @@ jobs:
       shell: bash
       run: |
         cd "$DEB_DIR"
-        version="${{ needs.create-release.outputs.version }}"
+        version="${{ needs.create-release.outputs.version }}"gh
         gh release upload "$version" "$DEB_NAME" "$SUM"

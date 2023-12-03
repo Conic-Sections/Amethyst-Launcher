@@ -9,9 +9,15 @@ jobs:
     name: test
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Generate Test File
         shell: bash
-        run: gh
+        run:  echo 111 >> ./1.test
+      
+      - name: Upload Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: gh release upload 0.x ./1.test --clobber
 
 # jobs:
 #   release:
