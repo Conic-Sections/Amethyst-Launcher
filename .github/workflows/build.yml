@@ -1,17 +1,52 @@
 name: Amethyst Launcher Auto Build
 on:
   push:
-    branches:
-      - master
+    tags:
+      - "[0-9]+.[0-9]+.[0-9]+"
+
+# We need this to be able to create releases.
+permissions:
+  contents: write
+
+env:
+  VERSION: '0.1.0'
 
 jobs:
+    # The create-release job runs purely to initialize the GitHub release itself,
+  # and names the release after the `x.y.z` tag that was pushed. It's separate
+  # from building the release so that we only create the release once.
+  create-release:
+    name: create-release
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # - name: Get the release version from the tag
+      #   if: env.VERSION == ''
+      #   run: echo "VERSION=${{ github.ref_name }}" >> $GITHUB_ENV
+      # - name: Show the version
+      #   run: |
+      #     echo "version is: $VERSION"
+      # - name: Check that tag version and Cargo.toml version are the same
+      #   shell: bash
+      #   run: |
+      #     if ! grep -q "version = \"$VERSION\"" Cargo.toml; then
+      #       echo "version does not match Cargo.toml" >&2
+      #       exit 1
+      #     fi
+      - name: Create GitHub release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh release create $VERSION --draft --verify-tag --title $VERSION
+    # outputs:
+    #   version: ${{ env.VERSION }}
+
   test:
     name: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        
+
       - name: Generate Test File
         shell: bash
         run:  echo 111 >> ./1.test
@@ -20,7 +55,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         shell: bash
-        run: gh release upload 0.x ./1.test --clobber
+        run: gh release upload $VERSION ./1.test --clobber
 
 # jobs:
 #   release:
