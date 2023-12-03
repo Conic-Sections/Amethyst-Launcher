@@ -9,6 +9,9 @@ jobs:
     name: test
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
       - name: Generate Test File
         shell: bash
         run:  echo 111 >> ./1.test
