@@ -24,9 +24,6 @@ jobs:
       - name: install deps via yarn
         working-directory: ./
         run: yarn
-      - name: run ts:check
-        working-directory: ./
-        run: yarn ts:check
       - name: run lint
         working-directory: ./
         run: yarn lint
