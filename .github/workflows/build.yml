@@ -85,19 +85,19 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Debian Bundle
-          path: ${{ github.workspace }}/src-tauri/target/release/bundle/deb/appname_${{ needs.get-version.outputs.app_version }}_${{ matrix.deb }}.deb
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/deb/amethyst-launcher_${{ needs.get-version.outputs.app_version }}_${{ matrix.deb }}.deb
 
       - name: Upload rpm bundle
         uses: actions/upload-artifact@v4
         with:
           name: RPM Bundle
-          path: ${{ github.workspace }}/src-tauri/target/release/bundle/rpm/appname-${{ needs.get-version.outputs.app_version }}-1.${{ matrix.rpm }}.rpm
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/rpm/amethyst-launcher-${{ needs.get-version.outputs.app_version }}-1.${{ matrix.rpm }}.rpm
 
       - name: Upload appimage bundle
         uses: actions/upload-artifact@v4
         with:
           name: AppImage Bundle
-          path: ${{ github.workspace }}/src-tauri/target/release/bundle/appimage/appname_${{ needs.get-version.outputs.app_version }}_${{ matrix.appimage }}.AppImage
+          path: ${{ github.workspace }}/src-tauri/target/release/bundle/appimage/amethyst-launcher_${{ needs.get-version.outputs.app_version }}_${{ matrix.appimage }}.AppImage
   build-other:
     needs: [get-version]
     permissions:
