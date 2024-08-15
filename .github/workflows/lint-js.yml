@@ -3,8 +3,8 @@ name: lint js
 on:
   push:
     paths:
-      - '.github/workflows/lint-js.yml'
-      - 'src/*'
+      - ".github/workflows/lint-js.yml"
+      - "src/*"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -17,16 +17,18 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: "20"
           cache: yarn
           cache-dependency-path: yarn.lock
-
-      - name: install deps via yarn
+      - name: Run ts:check
+        working-directory: ./
+        run: yarn ts:check
+      - name: Install Dependencies
         working-directory: ./
         run: yarn
-      - name: run lint
+      - name: Run lint
         working-directory: ./
         run: yarn lint
-      - name: run format
+      - name: Run format
         working-directory: ./
         run: yarn format:check
