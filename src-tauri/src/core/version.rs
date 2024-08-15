@@ -510,7 +510,9 @@ impl Version {
             if let Some(libraries) = version.libraries {
                 libraries_raw.splice(0..0, libraries);
             }
-            if let Some(v) = version.downloads { downloads.extend(v) }
+            if let Some(v) = version.downloads {
+                downloads.extend(v)
+            }
         }
         let main_class_is_empty = main_class.is_empty();
         let assets_index_is_empty = asset_index

@@ -480,7 +480,10 @@ async fn download_files(downloads: Vec<Download>) {
                 let task = task;
                 loop {
                     let speed_counter = speed_counter.clone();
-                    if download_file(client, &task, &counter, &speed_counter).await.is_ok() {
+                    if download_file(client, &task, &counter, &speed_counter)
+                        .await
+                        .is_ok()
+                    {
                         break;
                     }
                     println!("Downloaded failed: {}, retrying...", &task.url);
