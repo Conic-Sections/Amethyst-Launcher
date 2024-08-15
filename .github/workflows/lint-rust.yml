@@ -25,9 +25,12 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: ./src-tauri -> target
 
       - name: Run cargo fmt
-        run: cargo fmt --all -- --check
+        run: cd src-tauri && cargo fmt --all -- --check
 
   clippy:
           runs-on: ubuntu-latest
@@ -55,4 +58,4 @@ jobs:
                 save-if: ${{ matrix.clippy.key == 'all' }}
       
             - name: Run clippy - ${{ matrix.clippy.key }}
-              run: cargo clippy --manifest-path ./core/tauri/Cargo.toml --all-targets ${{ matrix.clippy.args }} -- -D warnings
+              run: cargo clippy --manifest-path ./src-tauri/Cargo.toml --all-targets ${{ matrix.clippy.args }} -- -D warnings
