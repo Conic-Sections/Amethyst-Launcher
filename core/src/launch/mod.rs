@@ -184,8 +184,12 @@ pub async fn launch(instance_name: String) {
             game_icon = game_icon.to_string_lossy()
         ));
     }
-    command_arguments.push(format!("-Xms{}M", launch_options.min_memory));
-    command_arguments.push(format!("-Xmx{}M", launch_options.max_memory));
+    if launch_options.min_memory > 0 {
+        command_arguments.push(format!("-Xms{}M", launch_options.min_memory));
+    }
+    if launch_options.max_memory > 0 {
+        command_arguments.push(format!("-Xmx{}M", launch_options.max_memory));
+    }
 
     if launch_options.ignore_invalid_minecraft_certificates {
         command_arguments.push("-Dfml.ignoreInvalidMinecraftCertificates=true".to_string());
@@ -197,11 +201,11 @@ pub async fn launch(instance_name: String) {
         GC::G1 => {
             command_arguments.extend([
                 "-XX:+UseG1GC".to_string(),
-                // "-XX:+UnlockExperimentalVMOptions".to_string(),
-                // "-XX:G1NewSizePercent=20".to_string(),
-                // "-XX:G1ReservePercent=20".to_string(),
-                // "-XX:MaxGCPauseMillis=50".to_string(),
-                // "-XX:G1HeapRegionSize=16M".to_string(),
+                "-XX:+UnlockExperimentalVMOptions".to_string(),
+                "-XX:G1NewSizePercent=20".to_string(),
+                "-XX:G1ReservePercent=20".to_string(),
+                "-XX:MaxGCPauseMillis=50".to_string(),
+                "-XX:G1HeapRegionSize=16M".to_string(),
             ]);
         }
         GC::Parallel => {
@@ -391,7 +395,7 @@ fn spawn_minecraft_process(
         };
     }
     // todo(after java exec): add -Dfile.encoding=encoding.name() and other
-    let mut launch_command = "java".to_string();
+    let mut launch_command = "/usr/lib/jvm/java-21-openjdk-21.0.4.0.7-2.fc40.x86_64/bin/java".to_string();
     for arg in command_arguments.clone() {
         launch_command.push(' ');
         launch_command = format!("{}{}", launch_command, arg);
