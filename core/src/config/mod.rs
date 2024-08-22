@@ -12,12 +12,16 @@ pub mod launch;
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, PartialOrd, Hash)]
 pub struct Config {
     pub launch: launch::LaunchConfig,
+    pub max_connection: usize,
+    pub max_download_speed: usize,
 }
 
 impl Default for Config {
     fn default() -> Self {
         Self {
             launch: launch::LaunchConfig::default(),
+            max_connection: 100,
+            max_download_speed: 0,
         }
     }
 }

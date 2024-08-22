@@ -52,12 +52,12 @@
             width="100px"
             style="display: inline-block; margin-right: 16px"
             placeholder="宽"
-            v-model="config.launch.width"></TextInputBox>
+            v-model.number="config.launch.width"></TextInputBox>
           <TextInputBox
             width="100px"
             style="display: inline-block"
             placeholder="高"
-            v-model="config.launch.height">
+            v-model.number="config.launch.height">
           </TextInputBox>
         </setting-item>
         <setting-item title="启动游戏后隐藏启动器(TODO)" icon="eye-slash">

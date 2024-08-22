@@ -2,6 +2,8 @@ import { invoke } from "@tauri-apps/api/core"
 import { defineStore } from "pinia"
 
 export type Config = {
+    max_connection: number
+    max_download_speed: number
     launch: {
         min_memory: number
         max_memory: number
@@ -30,6 +32,8 @@ export type Config = {
 export const useConfigStore = defineStore("global_config", {
     state: (): Config => {
         return {
+            max_connection: 0,
+            max_download_speed: 0,
             launch: {
                 min_memory: 0,
                 max_memory: 0,
