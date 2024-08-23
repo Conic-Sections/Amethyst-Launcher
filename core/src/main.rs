@@ -100,6 +100,7 @@ async fn main() {
             Ok(())
         })
         .run(tauri::generate_context!());
+    // FIXME: clear temp folder
     match result {
         Ok(_) => match tokio::fs::remove_dir_all(&DATA_LOCATION.get().unwrap().temp).await {
             Ok(_) => info!("Temporary files cleared"),
