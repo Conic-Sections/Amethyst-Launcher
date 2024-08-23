@@ -56,6 +56,7 @@ export default {
         general: {
             sidebar: "常规",
             language: "语言",
+            languageDesc: "重新加载页面后才能完全生效",
             updateChannel: "更新通道",
             updateChannelDesc: "控制启动器获取更新的频率",
             weekly: "每周构建",

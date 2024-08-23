@@ -59,6 +59,7 @@ export default {
         general: {
             sidebar: "Основные",
             language: "Язык",
+            languageDesc: "После перезагрузки страницы действие станет полностью действующим",
             updateChannel: "Канал обновлений",
             updateChannelDesc: "Управляет частотой проверки наличия обновлений",
             weekly: "Еженедельно",

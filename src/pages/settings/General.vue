@@ -2,7 +2,7 @@
   <keep-alive>
     <div>
       <setting-group>
-        <setting-item :title="$t('settings.general.language')" icon="language">
+        <setting-item :title="$t('settings.general.language')" :description="$t('settings.general.languageDesc')" icon="language">
           <select-vue :display-name="['English', '简体中文', 'Русский']" :options="['en', 'zh_cn', 'ru_ru']"
             v-model="config.language" :default="1"></select-vue>
         </setting-item>

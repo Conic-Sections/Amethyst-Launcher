@@ -59,6 +59,7 @@ export default {
         general: {
             sidebar: "General",
             language: "Language",
+            languageDesc: "It will take effect completely after reloading the page.",
             updateChannel: "Update Channel",
             updateChannelDesc: "Change update frequency",
             weekly: "Weekly",
