@@ -27,14 +27,13 @@ jobs:
         run: |
           yarn install
 
-      - name: Use Secret env
-        run: |
-          export TAURI_SIGNING_PRIVATE_KEY=${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
-
       - name: Build the app
+        env:
+          TAURI_SIGNING_PRIVATE_KEY: ${{ secrets.TAURI_SIGNING_PRIVATE_KEY }}
         run: |
           yarn tauri build -- --verbose
-      - name: show files
+
+      - name: Show files
         run: |
           tree ${{ github.workspace }}/core/target
 
