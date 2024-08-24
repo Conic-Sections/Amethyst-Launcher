@@ -9,7 +9,7 @@
             </div>
             <div>
               <h4>{{ $t("game.gameData.saves") }}</h4>
-              <p>{{ $t("game.saves.description", { counts: props.datas.length }) }}</p>
+              <p>{{ $tc("game.saves.description", { counts: props.datas.length }) }}</p>
             </div>
           </div>
           <div class="button" style="position: absolute; right: 0" @click="$emit('close')">

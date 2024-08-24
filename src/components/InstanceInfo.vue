@@ -47,6 +47,7 @@
 import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import $ from "jquery";
+import gsap from "gsap";
 
 const i18n = useI18n();
 
