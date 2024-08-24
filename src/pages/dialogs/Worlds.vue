@@ -26,7 +26,7 @@
                 <template #subtitle>
                   <tag :text="world.levelData.Version.Name" :color="['180', '180', '180']" text-color="#fffffff0"
                     :border="true" :round="true"></tag>
-                  <tag v-if="world.levelData.allowCommands" :text="$('game.saves.allowCheat')"
+                  <tag v-if="world.levelData.allowCommands" :text="$t('game.saves.allowCheat')"
                     :color="['180', '180', '180']" text-color="#fffffff0" :border="true" :round="true"></tag>
                   <tag v-if="world.levelData.hardcore" :text="$t('game.saves.hardcore')" :color="['180', '180', '180']"
                     text-color="#fffffff0" :border="true" :round="true"></tag>

@@ -1,8 +1,7 @@
 <template>
   <div class="window" data-tauri-drag-region>
     <div class="title-bar" data-tauri-drag-region>
-      <search-bar @click="openSearchPanel" id="global-search"
-        :placeholder="$t('globalSearch.placeholder')"></search-bar>
+      <search-bar @click="openSearchPanel" id="global-search" :placeholder="$t('globalSearch.placeholder')"></search-bar>
       <div class="win-btn">
         <div class="min" @click="minimize"><i></i></div>
         <div class="max" @click="maximize"><i></i></div>
@@ -31,7 +30,7 @@
     </main>
   </div>
 </template>
-2
+
 <script setup lang="ts">
 import { markRaw, reactive, ref, shallowRef } from "vue";
 import SearchBar from "./components/SearchBar.vue";
@@ -60,7 +59,7 @@ const pages: any = reactive({
   game: markRaw(Game),
 });
 
-let transitionName = ref("entrance");
+let transitionName = ref("slide-up");
 const currentComponent = shallowRef(pages.game);
 let last: any;
 const configStore = useConfigStore();
