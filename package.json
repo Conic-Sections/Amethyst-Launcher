@@ -19,6 +19,7 @@
         "@tauri-apps/api": ">=2.0.0-rc.0",
         "@tauri-apps/plugin-http": "^2.0.0-rc.0",
         "@tauri-apps/plugin-shell": ">=2.0.0-rc.0",
+        "@tauri-apps/plugin-updater": "^2.0.0-rc.0",
         "gsap": "^3.12.5",
         "jquery": "^3.6.4",
         "less": "^4.1.3",
