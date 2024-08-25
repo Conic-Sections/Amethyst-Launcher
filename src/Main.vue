@@ -362,7 +362,6 @@ main.main {
   border-bottom-left-radius: unset;
   border-top-right-radius: unset;
   background: var(--main-background);
-  // transition: all 0.3s ease;
 }
 
 main.main-large {
