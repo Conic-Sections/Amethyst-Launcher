@@ -661,11 +661,17 @@ async fn resolve_libraries(libraries: Vec<Value>, platform: &PlatformInfo) -> Ve
         let version = name.get(2).unwrap();
         let name = name.get(1).unwrap();
 
-        let url = if let Some(url) = library["url"].as_str() {
-            url
-        } else {
-            "https://libraries.minecraft.net/"
-        };
+        // NOTE: URL in mod loader version.json is NOT include path
+        // For example:
+        // "libraries": [
+        //     {
+        //       "name": "net.fabricmc:tiny-mappings-parser:0.3.0+build.17",
+        //       "url": "https://maven.fabricmc.net/"
+        //     },
+        //   ]
+        let url = library["url"]
+            .as_str()
+            .unwrap_or("https://libraries.minecraft.net/");
         let path = format!("{package}/{name}/{version}/{name}-{version}.jar");
         result.push(ResolvedLibrary {
             download_info: LibraryDownload {
