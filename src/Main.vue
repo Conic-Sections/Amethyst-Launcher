@@ -4,9 +4,7 @@
       <div></div>
       <div></div>
       <div style="display: flex; width: fit-content; align-items: center">
-        <search-bar
-          @click="openSearchPanel"
-          id="global-search"
+        <search-bar @click="openSearchPanel" id="global-search"
           :placeholder="$t('globalSearch.placeholder')"></search-bar>
       </div>
       <div class="account" @click="showAccountManager = true">
@@ -14,15 +12,8 @@
           <img :src="currentAccountProfile.avatar" alt="player avatar" />
         </div>
         <span>{{ currentAccountProfile.name }}</span>
-        <tag
-          style="margin-left: 8px"
-          -if="now > currentAccountProfile.tokenDeadline"
-          text="需要刷新"
-          :color="['249', '226', '175']"
-          text-color="#f9e2af"
-          :background="false"
-          :border="true"
-          font-size="10"
+        <tag style="margin-left: 8px" v-if="now > currentAccountProfile.tokenDeadline" text="需要刷新"
+          :color="['249', '226', '175']" text-color="#f9e2af" :background="false" :border="true" font-size="10"
           :round="true"></tag>
       </div>
       <div class="win-btn">
@@ -33,31 +24,16 @@
     </div>
     <div class="sidebar" data-tauri-drag-region="">
       <ul class="sidebar-btns" data-tauri-drag-region>
-        <sidebar-item
-          title="家"
-          icon="church"
-          @click="changePage($event, 'home')"
-          id="sidebar-home"></sidebar-item>
-        <sidebar-item
-          :title="$t('sidebar.game')"
-          icon="gamepad"
-          @click="changePage($event, 'game')"
+        <sidebar-item title="家" icon="church" @click="changePage($event, 'home')" id="sidebar-home"></sidebar-item>
+        <sidebar-item :title="$t('sidebar.game')" icon="gamepad" @click="changePage($event, 'game')"
           id="sidebar-game"></sidebar-item>
         <!-- <sidebar-item -->
         <!--   title="扩展" -->
         <!--   icon="puzzle-piece" -->
         <!--   @click="changePage($event, 'community')"></sidebar-item> -->
-        <sidebar-item
-          title="市场"
-          icon="shop"
-          @click="changePage($event, 'market')"
-          id="sidebar-market"></sidebar-item>
-        <sidebar-item
-          :title="$t('sidebar.settings')"
-          icon="nav-5"
-          @click="changePage($event, 'settings')"
-          id="sidebar-settings"
-          style="margin-top: auto"></sidebar-item>
+        <sidebar-item title="市场" icon="shop" @click="changePage($event, 'market')" id="sidebar-market"></sidebar-item>
+        <sidebar-item :title="$t('sidebar.settings')" icon="nav-5" @click="changePage($event, 'settings')"
+          id="sidebar-settings" style="margin-top: auto"></sidebar-item>
       </ul>
     </div>
     <main class="main" style="transition: none">
@@ -68,9 +44,7 @@
       </Transition>
     </main>
     <update-reminder></update-reminder>
-    <account-manager
-      :show="showAccountManager"
-      @close="showAccountManager = false"></account-manager>
+    <account-manager :show="showAccountManager" @close="showAccountManager = false"></account-manager>
   </div>
 </template>
 
@@ -190,17 +164,19 @@ watch(
     invoke("get_account_by_uuid", {
       uuid: value.current_account,
     }).then((res) => {
-      const account = (res as Account[])[0];
-      getAvatar(account.profile.skins[0].url, 32).then((avatar) => {
-        currentAccountProfile.value = {
-          name: account.profile.profile_name,
-          avatar,
-          tokenDeadline: account.token_deadline,
-        };
-      });
       invoke("update_config", { config: config }).then(() => {
         invoke("save_config");
       });
+      const account = (res as Account[])[0];
+      if (account != undefined) {
+        getAvatar(account.profile.skins[0].url, 32).then((avatar) => {
+          currentAccountProfile.value = {
+            name: account.profile.profile_name,
+            avatar,
+            tokenDeadline: account.token_deadline,
+          };
+        });
+      }
     });
   },
   { immediate: true },
@@ -288,7 +264,7 @@ listen("refresh_accounts_list", () => {
   margin-right: 20px;
 }
 
-.win-btn > div {
+.win-btn>div {
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -299,7 +275,7 @@ listen("refresh_accounts_list", () => {
   transition: transform 100ms;
 }
 
-.win-btn > div > i {
+.win-btn>div>i {
   font-style: normal;
   font-family: "fa-pro";
   font-weight: 100;
@@ -308,50 +284,50 @@ listen("refresh_accounts_list", () => {
   justify-content: center;
 }
 
-.win-btn > div > i::before {
+.win-btn>div>i::before {
   line-height: 1;
   color: var(--window-btn-icon-color);
   opacity: 0;
 }
 
-.win-btn > div:hover > i::before {
+.win-btn>div:hover>i::before {
   opacity: 1;
 }
 
-.win-btn > div:active {
+.win-btn>div:active {
   transform: scale(0.9);
 }
 
-.win-btn > div:active > i {
+.win-btn>div:active>i {
   opacity: 0.9;
 }
 
-.win-btn > div.min {
+.win-btn>div.min {
   background: var(--min-btn-background);
 }
 
-.win-btn > div.max {
+.win-btn>div.max {
   background: var(--max-btn-background);
 }
 
-.win-btn > div.close {
+.win-btn>div.close {
   background: var(--close-btn-background);
 }
 
-.win-btn > div.min > i::before {
+.win-btn>div.min>i::before {
   content: "\f068";
   font-size: 12px;
   margin-top: 1px;
 }
 
-.win-btn > div.max > i::before {
+.win-btn>div.max>i::before {
   content: "\f065";
   font-size: 12px;
   margin-top: 1.6px;
   margin-left: 0.8px;
 }
 
-.win-btn > div.close > i::before {
+.win-btn>div.close>i::before {
   content: "\f00d";
   font-size: 14px;
   margin-top: 1px;
@@ -375,11 +351,11 @@ listen("refresh_accounts_list", () => {
   margin-bottom: 22px;
 }
 
-.sidebar > * {
+.sidebar>* {
   transition: opacity 0.3s ease;
 }
 
-.sidebar-hidden > * {
+.sidebar-hidden>* {
   opacity: 0;
 }
 
