@@ -23,7 +23,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: rust audit
-        uses: rustsec/audit-check@v2
+        uses: rustsec/audit-check@v2.0.0
         with:
           working-directory: ./core
           token: ${{ secrets.GITHUB_TOKEN }}
