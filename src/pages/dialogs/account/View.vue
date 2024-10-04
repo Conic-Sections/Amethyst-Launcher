@@ -2,39 +2,23 @@
   <div class="account-view">
     <div class="row1">
       <div>
-        <list-item
-          v-for="(account, index) in accounts"
-          :key="index"
-          :title="account.profile.profile_name"
-          :logo="account.profile.avatar"
-          :click-able="true"
-          :buttons="['arrows-rotate', 'trash']"
-          @click-arrows-rotate="refreshLogin(account.profile.uuid)"
-          @click-trash="deleteAccount(account.profile.uuid)"
+        <list-item v-for="(account, index) in accounts" :key="index" :title="account.profile.profile_name"
+          :logo="account.profile.avatar" :click-able="true" :buttons="['arrows-rotate', 'trash']"
+          @click-arrows-rotate="refreshLogin(account.profile.uuid)" @click-trash="deleteAccount(account.profile.uuid)"
           @click="chooseAccount(account)">
           <template #subtitle>
-            <tag
-              v-if="now > account.token_deadline"
-              text="需要刷新"
-              :color="['249', '226', '175']"
-              text-color="#f9e2af"
-              :background="false"
-              :border="true"
-              font-size="10"
-              :round="true"></tag>
+            <tag v-if="
+              now > (account.token_deadline ? account.token_deadline : now + 100000) &&
+              account.account_type === 'Microsoft'
+            " text="需要刷新" :color="['249', '226', '175']" text-color="#f9e2af" :background="false" :border="true"
+              font-size="10" :round="true"></tag>
           </template>
-          <i
-            class="badge-check"
-            style="color: #74c7ec; font-style: normal; font-family: fa-pro"></i>
+          <i class="badge-check" style="color: #74c7ec; font-style: normal; font-family: fa-pro"></i>
           微软（验证服务）
         </list-item>
       </div>
       <div style="margin-top: 8px">
-        <list-item
-          class="list-item-user-plus"
-          title="添加帐号"
-          logo="user-plus"
-          @click="$emit('add')"
+        <list-item class="list-item-user-plus" title="添加帐号" logo="user-plus" @click="$emit('add')"
           :click-able="true"></list-item>
       </div>
     </div>
@@ -61,7 +45,7 @@ const accounts = ref<Account[]>([]);
 export type Account = {
   refresh_token?: string;
   access_token?: string;
-  token_deadline: number;
+  token_deadline?: number;
   profile: {
     avatar: string;
     profile_name: string;
@@ -97,7 +81,7 @@ setInterval(() => {
   now.value = Math.round(new Date().getTime() / 1000);
 }, 1000);
 
-getAccounts().then(() => {});
+getAccounts().then(() => { });
 
 listen("refresh_accounts_list", () => {
   getAccounts();
@@ -131,7 +115,7 @@ function chooseAccount(account: Account) {
   padding: 0 12px;
   overflow: auto;
 
-  > div {
+  >div {
     border-radius: 8px;
     overflow: hidden;
   }
