@@ -6,12 +6,7 @@
         "importsNotUsedAsValues": "remove",
         "verbatimModuleSyntax": false,
         "composite": true,
-        "lib": [
-            "esnext",
-            "dom"
-        ],
-        "types": [
-            "node"
-        ]
+        "lib": ["esnext", "dom"],
+        "types": ["node"]
     }
 }

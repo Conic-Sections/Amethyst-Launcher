@@ -116,12 +116,13 @@ pub async fn add_microsoft_account(code: String) -> std::result::Result<(), ()> 
     async fn add_microsoft_account(code: String) -> anyhow::Result<()> {
         info!("Signing in through Microsoft");
         let account = microsoft_login(LoginPayload::AccessCode(code)).await?;
-        if get_account_by_uuid(&account.profile.uuid).len() > 0 {
+        if get_account_by_uuid(&account.profile.uuid).is_empty() {
+            add_account(account)?;
+            Ok(())
+        } else {
             error!("The account has already been added");
-            return Err(anyhow::anyhow!("This account has already been added"));
-        };
-        add_account(account)?;
-        Ok(())
+            Err(anyhow::anyhow!("This account has already been added"))
+        }
     }
     match add_microsoft_account(code).await {
         anyhow::Result::Ok(x) => Ok(x),
@@ -193,10 +194,10 @@ pub async fn refresh_all_microsoft_account() {
 pub async fn microsoft_login(payload: LoginPayload) -> anyhow::Result<Account> {
     let client = HTTP_CLIENT.get().unwrap();
     let access_token_response = match payload {
-        LoginPayload::RefreshToken(token) => get_access_token_from_refresh_token(&client, &token)
+        LoginPayload::RefreshToken(token) => get_access_token_from_refresh_token(client, &token)
             .await
             .unwrap(),
-        LoginPayload::AccessCode(code) => get_access_token(&client, &code).await.unwrap(),
+        LoginPayload::AccessCode(code) => get_access_token(client, &code).await.unwrap(),
     };
     info!("Successfully get Microsoft access token");
     let access_token = access_token_response["access_token"]
@@ -214,20 +215,20 @@ pub async fn microsoft_login(payload: LoginPayload) -> anyhow::Result<Account> {
         .unwrap()
         .to_string();
 
-    let xbox_auth_response = xbox_authenticate(&client, &access_token).await.unwrap();
+    let xbox_auth_response = xbox_authenticate(client, &access_token).await.unwrap();
     info!("Successfully login Xbox");
-    let xsts_token = xsts_authenticate(&client, &xbox_auth_response.xbl_token)
+    let xsts_token = xsts_authenticate(client, &xbox_auth_response.xbl_token)
         .await
         .unwrap();
     info!("Successfully verify XSTS");
     let minecraft_access_token =
-        minecraft_authenticate(&client, &xbox_auth_response.xbl_uhs, &xsts_token)
+        minecraft_authenticate(client, &xbox_auth_response.xbl_uhs, &xsts_token)
             .await
             .unwrap();
     info!("Successfully get Minecraft access token");
-    check_game(&client, &minecraft_access_token).await.unwrap();
+    check_game(client, &minecraft_access_token).await.unwrap();
     info!("Successfully check ownership");
-    let player_info = get_player_infomations(&client, &minecraft_access_token)
+    let player_info = get_player_infomations(client, &minecraft_access_token)
         .await
         .unwrap();
     info!("Successfully get game profile");

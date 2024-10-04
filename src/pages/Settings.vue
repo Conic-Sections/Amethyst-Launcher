@@ -2,8 +2,11 @@
   <div class="settings">
     <div class="rol-1">
       <ul class="settings-menu">
-        <li @click="switchComponent(item, index)" :class="[activeComponentIndex == index ? 'active' : '']"
-          v-for="(item, index) in components" :key="index">
+        <li
+          @click="switchComponent(item, index)"
+          :class="[activeComponentIndex == index ? 'active' : '']"
+          v-for="(item, index) in components"
+          :key="index">
           <i :class="`${item.icon} fa-pro`"></i>{{ $t(item.name) }}
         </li>
       </ul>
