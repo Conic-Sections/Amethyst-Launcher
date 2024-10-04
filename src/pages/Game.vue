@@ -2,72 +2,35 @@
   <keep-alive>
     <div class="game-page-main">
       <div class="row-1">
-        <install-progress
-          :installing="installing"
-          :instance-name="currentInstance.config.name"
-          :mod-loader-type="currentInstance.config.runtime.mod_loader_type"
-          :mod-loader-version="
-            currentInstance.config.runtime.mod_loader_version
-          "></install-progress>
-        <instance-info
-          :minecraft-version="currentInstance.config.runtime.minecraft"
+        <install-progress :installing="installing" :instance-name="currentInstance.config.name"
+          :mod-loader-type="currentInstance.config.runtime.mod_loader_type" :mod-loader-version="currentInstance.config.runtime.mod_loader_version
+            "></install-progress>
+        <instance-info :minecraft-version="currentInstance.config.runtime.minecraft"
           :mod-loader-type="currentInstance.config.runtime.mod_loader_type"
           :mod-loader-version="currentInstance.config.runtime.mod_loader_version"
-          :instance-name="currentInstance.config.name"
-          :installed="true"
-          :game-button-type="gameButtonType"
-          :button-loading="buttonLoading"
-          @game-button-click="gameButtonClick"
-          :error-type="errorType"></instance-info>
+          :instance-name="currentInstance.config.name" :installed="true" :game-button-type="gameButtonType"
+          :button-loading="buttonLoading" @game-button-click="gameButtonClick" :error-type="errorType"></instance-info>
         <assets-manager :instance="currentInstance" style="margin-top: 20px"></assets-manager>
       </div>
       <div class="row-2">
-        <!-- <div class="group-name"> -->
-        <!--   <div -->
-        <!--     style=" -->
-        <!--       display: flex; -->
-        <!--       justify-content: space-between; -->
-        <!--       align-items: center; -->
-        <!--       height: 100%; -->
-        <!--     "> -->
-        <!--     <p style="margin-left: 4px">{{ $t("game.accounts") }}</p> -->
-        <!--     <button -->
-        <!--       @click="$emit('jump', 'accounts')" -->
-        <!--       class="group-button" -->
-        <!--       style="margin-right: 6px"> -->
-        <!--       <i class="chevron-right" style="font-size: 12px"></i> -->
-        <!--     </button> -->
-        <!--   </div> -->
-        <!-- </div> -->
-        <!-- <accounts></accounts> -->
         <div class="group-name">
-          <div
-            style="
+          <div style="
               display: flex;
               justify-content: space-between;
               align-items: center;
               height: 100%;
             ">
             <p style="margin-left: 4px">{{ $t("game.instances") }}</p>
-            <button
-              class="group-button"
-              @click="show.instanceManager = true"
-              style="margin-right: 6px">
+            <button class="group-button" @click="show.instanceManager = true" style="margin-right: 6px">
               <i class="chevron-right" style="font-size: 12px"></i>
             </button>
           </div>
         </div>
         <Instances :instances="instances" @select="setCurrentInstance"></Instances>
-        <instance-manager
-          :show="show.instanceManager"
-          @close="show.instanceManager = false"
-          :instances="instances"
+        <instance-manager :show="show.instanceManager" @close="show.instanceManager = false" :instances="instances"
           @update="update"></instance-manager>
       </div>
-      <LogViewer
-        :instance-name="currentInstance.config.name"
-        :visible="logViewerOpen"
-        @close="logViewerOpen = false">
+      <LogViewer :instance-name="currentInstance.config.name" :visible="logViewerOpen" @close="logViewerOpen = false">
       </LogViewer>
     </div>
   </keep-alive>
@@ -77,7 +40,6 @@
 import InstanceInfo from "@/components/InstanceInfo.vue";
 import AssetsManager from "@/components/AssetsManager.vue";
 import InstallProgress from "./dialogs/InstallProgress.vue";
-import Accounts from "@/components/Accounts.vue";
 import Instances from "@/components/Instances.vue";
 import InstanceManager from "@/pages/dialogs/InstanceManager.vue";
 import LogViewer from "./dialogs/LogViewer.vue";
@@ -105,7 +67,7 @@ interface Instance {
   installed: boolean;
 }
 
-let currentInstance = ref<Instance>({
+const currentInstance = ref<Instance>({
   config: {
     name: "",
     runtime: {
@@ -116,12 +78,12 @@ let currentInstance = ref<Instance>({
   },
   installed: false,
 });
-let show = ref({
+const show = ref({
   instanceManager: false,
 });
-let instances: Ref<Instance[]> = ref([]);
-let gameButtonType: Ref<"install" | "launch" | "error"> = ref("install");
-let errorType: Ref<"launch" | "install" | undefined> = ref();
+const instances: Ref<Instance[]> = ref([]);
+const gameButtonType: Ref<"install" | "launch" | "error"> = ref("install");
+const errorType: Ref<"launch" | "install" | undefined> = ref();
 
 function update() {
   invoke("scan_instances_folder").then((res) => {

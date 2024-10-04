@@ -2,8 +2,16 @@
     "extends": "./tsconfig.app.json",
     "exclude": [],
     "compilerOptions": {
+        "preserveValueImports": false,
+        "importsNotUsedAsValues": "remove",
+        "verbatimModuleSyntax": false,
         "composite": true,
-        "lib": [],
-        "types": ["node"]
+        "lib": [
+            "esnext",
+            "dom"
+        ],
+        "types": [
+            "node"
+        ]
     }
 }

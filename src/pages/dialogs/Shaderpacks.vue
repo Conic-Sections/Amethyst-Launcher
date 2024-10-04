@@ -1,8 +1,7 @@
 <template>
   <dialog-vue :visible="show" :width="460" :height="480">
     <div style="position: relative; margin: 12px 14px; width: calc(100% - 28px)">
-      <div
-        style="
+      <div style="
           display: flex;
           justify-content: space-between;
           border-bottom: 2px solid rgba(var(--theme-color), 0.6);
@@ -12,8 +11,7 @@
           <div class="icon"></div>
           <div class="text">
             <h4 class="name">
-              <span>{{ instanceName }}</span
-              >中的光影包
+              <span>{{ instanceName }}</span>中的光影包
             </h4>
             <p>共安装有 {{ shaderpacks.length }} 个光影包</p>
           </div>
@@ -22,8 +20,7 @@
           <dialog-button icon="close" @click="$emit('close')"></dialog-button>
         </div>
       </div>
-      <search-bar
-        style="
+      <search-bar style="
           margin-bottom: 8px;
           position: sticky;
           top: 0;
@@ -36,11 +33,7 @@
           box-shadow: 0 0 10px #00000012;
         "></search-bar>
       <TransitionGroup>
-        <list-item
-          v-for="(shadeerpack, index) in shaderpacks"
-          :key="index"
-          :title="shadeerpack"
-          :click-able="false"
+        <list-item v-for="(shadeerpack, index) in shaderpacks" :key="index" :title="shadeerpack" :click-able="false"
           :buttons="['circle-info', 'folders', 'trash-can']">
         </list-item>
       </TransitionGroup>
@@ -49,10 +42,8 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from "vue";
 import DialogVue from "@/components/Dialog.vue";
 import ListItem from "@/components/ListItem.vue";
-import Tag from "@/components/Tag.vue";
 import SearchBar from "@/components/SearchBar.vue";
 import DialogButton from "@/components/DialogButton.vue";
 

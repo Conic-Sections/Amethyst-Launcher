@@ -6,7 +6,7 @@ use std::time::{SystemTime, UNIX_EPOCH};
 
 use anyhow::anyhow;
 use base64::{engine::general_purpose, Engine};
-use log::info;
+use log::{error, info};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use tauri::Emitter;
@@ -85,7 +85,6 @@ fn add_account(account: Account) -> anyhow::Result<()> {
     let path = DATA_LOCATION.get().unwrap().root.join("accounts.json");
     let contents = serde_json::to_string_pretty(&accounts).unwrap();
     std::fs::write(&path, &contents).unwrap();
-    println!("{:#?}", path);
     MAIN_WINDOW
         .get()
         .unwrap()
@@ -117,7 +116,10 @@ pub async fn add_microsoft_account(code: String) -> std::result::Result<(), ()> 
     async fn add_microsoft_account(code: String) -> anyhow::Result<()> {
         info!("Signing in through Microsoft");
         let account = microsoft_login(LoginPayload::AccessCode(code)).await?;
-        println!("{:#?}", account);
+        if get_account_by_uuid(&account.profile.uuid).len() > 0 {
+            error!("The account has already been added");
+            return Err(anyhow::anyhow!("This account has already been added"));
+        };
         add_account(account)?;
         Ok(())
     }
@@ -165,15 +167,15 @@ pub async fn refresh_all_microsoft_account() {
     for account in accounts {
         if account.refresh_token.is_none() || account.account_type != AccountType::Microsoft {
             result.push(account);
-            continue;
+        } else {
+            result.push(
+                microsoft_login(LoginPayload::RefreshToken(
+                    account.refresh_token.unwrap_or_default(),
+                ))
+                .await
+                .unwrap(),
+            )
         }
-        result.push(
-            microsoft_login(LoginPayload::RefreshToken(
-                account.refresh_token.unwrap_or_default(),
-            ))
-            .await
-            .unwrap(),
-        )
     }
     let path = DATA_LOCATION.get().unwrap().root.join("accounts.json");
     let contents = serde_json::to_string_pretty(&result).unwrap();
@@ -189,8 +191,7 @@ pub async fn refresh_all_microsoft_account() {
 ///
 /// Note: Shouldn't save refresh token to config file
 pub async fn microsoft_login(payload: LoginPayload) -> anyhow::Result<Account> {
-    // let client = HTTP_CLIENT.get().unwrap();
-    let client = reqwest::Client::new();
+    let client = HTTP_CLIENT.get().unwrap();
     let access_token_response = match payload {
         LoginPayload::RefreshToken(token) => get_access_token_from_refresh_token(&client, &token)
             .await

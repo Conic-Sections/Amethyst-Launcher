@@ -2,11 +2,8 @@
   <div class="settings">
     <div class="rol-1">
       <ul class="settings-menu">
-        <li
-          @click="switchComponent(item, index)"
-          :class="[activeComponentIndex == index ? 'active' : '']"
-          v-for="(item, index) in components"
-          :key="index">
+        <li @click="switchComponent(item, index)" :class="[activeComponentIndex == index ? 'active' : '']"
+          v-for="(item, index) in components" :key="index">
           <i :class="`${item.icon} fa-pro`"></i>{{ $t(item.name) }}
         </li>
       </ul>
@@ -31,11 +28,6 @@ import Download from "./settings/Download.vue";
 import Accessibility from "./settings/Accessibility.vue";
 import Extend from "./settings/Extend.vue";
 import About from "./settings/About.vue";
-import { useConfigStore } from "@/config";
-import { useI18n } from "vue-i18n";
-import { invoke } from "@tauri-apps/api/core";
-const i18n = useI18n();
-const config = useConfigStore();
 
 const components = ref([
   {
