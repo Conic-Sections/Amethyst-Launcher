@@ -6,58 +6,38 @@
         {{ $t("settings.about.sponsorDesc") }}
       </div>
       <setting-group>
-        <setting-item
-          :title="$t('settings.about.report')"
-          :description="$t('settings.about.reportDesc')"
-          icon="bug"
+        <setting-item :title="$t('settings.about.report')" :description="$t('settings.about.reportDesc')" icon="bug"
           :clickAble="true">
           <i class="chevron-right" style="margin-right: 10px"></i>
         </setting-item>
       </setting-group>
       <SettingGroup :title="$t('settings.about.thanks')"> </SettingGroup>
       <SettingGroup :title="$t('settings.about.thirdPartyLibraries')">
-        <setting-item
-          title="Tauri"
+        <setting-item title="Tauri"
           description="Copyright 2022 Tauri Programme within The Commons Conservancy<br> Licensed under the Apache-2.0 License or MIT Licenses"
           icon="tauri"></setting-item>
-        <setting-item
-          title="Vue"
+        <setting-item title="Vue"
           description="Copyright (c) 2018-present, Yuxi (Evan) You and Vue contributors<br> Licensed under the MIT License"
           icon="vuejs"></setting-item>
-        <setting-item
-          title="jQuery"
+        <setting-item title="jQuery"
           description="Copyright 2024 OpenJS Foundation and jQuery contributors.<br> Licensed under the MIT License"
           icon="jquery"></setting-item>
-        <setting-item
-          title="vite"
+        <setting-item title="vite"
           description="Copyright (c) 2019-present, Yuxi (Evan) You and Vite contributors<br> Licensed under the MIT License"
           icon="vite"></setting-item>
-        <setting-item
-          title="Less"
+        <setting-item title="Less"
           description="Copyright (c) 2009-2017 Alexis Sellier & The Core Less Team<br> Licensed under the Apache License."
           icon="less"></setting-item>
-        <setting-item
-          title="Tokio"
+        <setting-item title="Tokio"
           description="Copyright (c) 2019 The Tokio Project Developers<br> Licensed under the MIT License."
           icon="tokio"></setting-item>
-        <setting-item
-          title="Serde"
-          description="Licensed under Apache-2.0 or MIT license."></setting-item>
-        <setting-item
-          title="Anyhow"
-          description="Licensed under Apache-2.0 or MIT license."></setting-item>
-        <setting-item
-          title="OneCell"
-          description="Licensed under Apache-2.0 or MIT license."></setting-item>
-        <setting-item
-          title="Rejex"
-          description="Licensed under Apache-2.0 or MIT license."></setting-item>
-        <setting-item
-          title="Rayon"
+        <setting-item title="Serde" description="Licensed under Apache-2.0 or MIT license."></setting-item>
+        <setting-item title="Anyhow" description="Licensed under Apache-2.0 or MIT license."></setting-item>
+        <setting-item title="OneCell" description="Licensed under Apache-2.0 or MIT license."></setting-item>
+        <setting-item title="Rejex" description="Licensed under Apache-2.0 or MIT license."></setting-item>
+        <setting-item title="Rayon"
           description="Rayon is distributed under the terms of both the MIT license and the Apache License (Version 2.0)."></setting-item>
-        <setting-item
-          title="env_logger"
-          description="Licensed under Apache-2.0 or MIT license."></setting-item>
+        <setting-item title="env_logger" description="Licensed under Apache-2.0 or MIT license."></setting-item>
       </SettingGroup>
     </div>
   </keep-alive>
@@ -102,17 +82,3 @@ import SettingGroup from "@/components/SettingGroup.vue";
   opacity: 0.9;
 }
 </style>
-<!-- <keep-alive>
-    <div>
-      <tip-bar style="padding:24px 34px;font-size: 14px;">
-        <p style="line-height: 1.4;">Amethyst Launcher 是一个优雅、开源、可扩展的 Minecraft 启动器，由 Broken_Deer 用 ❤️ 制作，您的赞助将帮助 Amethyst Launcher 获得更好的发展</p>
-        <p style="line-height: 1.4;">Amethyst Launcher 本体的所有内容都是免费的，扩展收取费用与启动器作者无关（见免责声明）</p>
-      </tip-bar>
-      <expander :canSwap=false title="更新与安全" description="当前版本: 0.1.0 上次检查时间: 2022/11/27 18:03" icon="arrows-rotate">
-        <toggle-switch-bar name="使用预览版启动器" config="globle.update.beta"></toggle-switch-bar> 更改为「更新通道」列表选项
-        <toggle-switch-bar name="自动更新" config="globle.update.auto"></toggle-switch-bar>
-        <toggle-switch-bar name="检查更新时同时检查扩展更新" config="globle.update.ext"></toggle-switch-bar>
-        <button-bar name="立即检查更新" text="检查更新"></button-bar>
-      </expander>
-    </div>
-  </keep-alive> -->
