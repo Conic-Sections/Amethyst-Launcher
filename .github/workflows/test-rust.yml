@@ -1,0 +1,38 @@
+name: lint rust
+
+on:
+  push:
+    paths:
+      - ".github/workflows/test-rust.yml"
+      - "core/**"
+  pull_request:
+    branches: ["master"]
+    path:
+      - ".github/workflows/test-rust.yml"
+      - "core/**"
+
+env:
+  RUST_BACKTRACE: 1
+  CARGO_PROFILE_DEV_DEBUG: 0 # This would add unnecessary bloat to the target folder, decreasing cache efficiency.
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Rust and rustfmt
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: ./core -> target
+
+      - name: Run cargo fmt
+        run: cd core && cargo test
