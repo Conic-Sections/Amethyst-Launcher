@@ -1,4 +1,4 @@
-name: lint rust
+name: test rust
 
 on:
   push:
