@@ -1,14 +1,18 @@
 <template>
   <div class="window" data-tauri-drag-region>
     <div class="title-bar" data-tauri-drag-region>
-      <div style="
+      <div
+        style="
           display: flex;
           width: calc(100vw - 560px);
           margin-left: 120px;
           flex-shrink: 0;
           align-items: center;
         ">
-        <search-bar @click="openSearchPanel" id="global-search" style="width: 100%"
+        <search-bar
+          @click="openSearchPanel"
+          id="global-search"
+          style="width: 100%"
           :placeholder="$t('globalSearch.placeholder')"></search-bar>
       </div>
       <div class="account" @click="showAccountManager = true">
@@ -16,11 +20,19 @@
           <img :src="currentAccountProfile.avatar" alt="player avatar" />
         </div>
         <span>{{ currentAccountProfile.name }}</span>
-        <tag style="margin-left: 8px" v-if="
-          currentTime.now > currentAccountProfile.tokenDeadline &&
-          currentAccountProfile.type === 'Microsoft'
-        " text="需要刷新" :color="['249', '226', '175']" text-color="#f9e2af" :background="false" :border="true"
-          font-size="10" :round="true"></tag>
+        <tag
+          style="margin-left: 8px"
+          v-if="
+            currentTime.now > currentAccountProfile.tokenDeadline &&
+            currentAccountProfile.type === 'Microsoft'
+          "
+          text="需要刷新"
+          :color="['249', '226', '175']"
+          text-color="#f9e2af"
+          :background="false"
+          :border="true"
+          font-size="10"
+          :round="true"></tag>
       </div>
       <div class="win-btn">
         <div class="min" @click="minimize"><i></i></div>
@@ -31,14 +43,27 @@
     <div class="sidebar" data-tauri-drag-region>
       <img class="logo" src="@/assets/images/tauri-favicon.svg" />
       <ul class="sidebar-btns" data-tauri-drag-region>
-        <sidebar-item :title="$t('sidebar.home')" icon="church" @click="changePage($event, 'home')"
+        <sidebar-item
+          :title="$t('sidebar.home')"
+          icon="church"
+          @click="changePage($event, 'home')"
           id="sidebar-home"></sidebar-item>
-        <sidebar-item :title="$t('sidebar.game')" icon="gamepad" @click="changePage($event, 'game')"
+        <sidebar-item
+          :title="$t('sidebar.game')"
+          icon="gamepad"
+          @click="changePage($event, 'game')"
           id="sidebar-game"></sidebar-item>
-        <sidebar-item :title="$t('sidebar.market')" icon="shop" @click="changePage($event, 'market')"
+        <sidebar-item
+          :title="$t('sidebar.market')"
+          icon="shop"
+          @click="changePage($event, 'market')"
           id="sidebar-market"></sidebar-item>
-        <sidebar-item :title="$t('sidebar.settings')" icon="nav-5" @click="changePage($event, 'settings')"
-          id="sidebar-settings" style="margin-top: auto"></sidebar-item>
+        <sidebar-item
+          :title="$t('sidebar.settings')"
+          icon="nav-5"
+          @click="changePage($event, 'settings')"
+          id="sidebar-settings"
+          style="margin-top: auto"></sidebar-item>
       </ul>
     </div>
     <main class="main" style="transition: none">
@@ -49,7 +74,9 @@
       </Transition>
     </main>
     <update-reminder></update-reminder>
-    <account-manager :show="showAccountManager" @close="showAccountManager = false"></account-manager>
+    <account-manager
+      :show="showAccountManager"
+      @close="showAccountManager = false"></account-manager>
   </div>
 </template>
 
@@ -285,7 +312,7 @@ listen("add-account", () => {
   margin-right: 20px;
 }
 
-.win-btn>div {
+.win-btn > div {
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -296,7 +323,7 @@ listen("add-account", () => {
   transition: transform 100ms;
 }
 
-.win-btn>div>i {
+.win-btn > div > i {
   font-style: normal;
   font-family: "fa-pro";
   font-weight: 100;
@@ -305,50 +332,50 @@ listen("add-account", () => {
   justify-content: center;
 }
 
-.win-btn>div>i::before {
+.win-btn > div > i::before {
   line-height: 1;
   color: var(--window-btn-icon-color);
   opacity: 0;
 }
 
-.win-btn>div:hover>i::before {
+.win-btn > div:hover > i::before {
   opacity: 1;
 }
 
-.win-btn>div:active {
+.win-btn > div:active {
   transform: scale(0.9);
 }
 
-.win-btn>div:active>i {
+.win-btn > div:active > i {
   opacity: 0.9;
 }
 
-.win-btn>div.min {
+.win-btn > div.min {
   background: var(--min-btn-background);
 }
 
-.win-btn>div.max {
+.win-btn > div.max {
   background: var(--max-btn-background);
 }
 
-.win-btn>div.close {
+.win-btn > div.close {
   background: var(--close-btn-background);
 }
 
-.win-btn>div.min>i::before {
+.win-btn > div.min > i::before {
   content: "\f068";
   font-size: 12px;
   margin-top: 1px;
 }
 
-.win-btn>div.max>i::before {
+.win-btn > div.max > i::before {
   content: "\f065";
   font-size: 12px;
   margin-top: 1.6px;
   margin-left: 0.8px;
 }
 
-.win-btn>div.close>i::before {
+.win-btn > div.close > i::before {
   content: "\f00d";
   font-size: 14px;
   margin-top: 1px;
@@ -379,11 +406,11 @@ listen("add-account", () => {
   margin-bottom: 22px;
 }
 
-.sidebar>* {
+.sidebar > * {
   transition: opacity 0.3s ease;
 }
 
-.sidebar-hidden>* {
+.sidebar-hidden > * {
   opacity: 0;
 }
 
