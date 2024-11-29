@@ -1,46 +1,27 @@
 <template>
   <div class="instances">
     <div class="overview">
-      <list-item
-        @click="$emit('select', instance)"
-        v-for="(instance, index) in computedInstances"
-        :key="index"
-        logo="1"
-        :title="instanceDisplayName(instance.config.name, index)"
-        :click-able="true"
+      <list-item @click="$emit('select', instance)" v-for="(instance, index) in computedInstances" :key="index" logo="1"
+        :title="instanceDisplayName(instance.config.name, index)" :click-able="true"
         :buttons="['arrow-up-right-from-square']">
         <template #icon>
-          <img
-            style="width: 100%; height: 100%; content-visibility: auto"
-            src="@/assets/images/minecraft-icon.svg"
+          <img style="width: 100%; height: 100%; content-visibility: auto" src="@/assets/images/minecraft-icon.svg"
             alt="" />
         </template>
         <template #default>
           <div class="tag">
             <img src="@/assets/images/minecraft.webp" width="14px" height="14px" /><span>{{
               instance.config.runtime.minecraft
-            }}</span>
+              }}</span>
           </div>
           <div class="tag" v-if="!!instance.config.runtime.mod_loader_type">
-            <img
-              src="@/assets/images/quilt.svg"
-              width="14px"
-              height="14px"
+            <img src="@/assets/images/quilt.svg" width="14px" height="14px"
               v-if="instance.config.runtime.mod_loader_type == 'Quilt'" />
-            <img
-              src="@/assets/images/fabric.webp"
-              width="14px"
-              height="14px"
+            <img src="@/assets/images/fabric.webp" width="14px" height="14px"
               v-if="instance.config.runtime.mod_loader_type == 'Fabric'" />
-            <img
-              src="@/assets/images/neoforged.png"
-              width="14px"
-              height="14px"
+            <img src="@/assets/images/neoforged.png" width="14px" height="14px"
               v-if="instance.config.runtime.mod_loader_type == 'Neoforge'" />
-            <img
-              src="@/assets/images/forge.svg"
-              width="14px"
-              height="14px"
+            <img src="@/assets/images/forge.svg" width="14px" height="14px"
               v-if="instance.config.runtime.mod_loader_type == 'Forge'" />
             <span>{{ instance.config.runtime.mod_loader_version }}</span>
           </div>
@@ -55,24 +36,8 @@ import { computed } from "vue";
 import { useConfigStore } from "@/store/config";
 import ListItem from "./ListItem.vue";
 import { useI18n } from "vue-i18n";
+import { Instance } from "@/types/instance";
 const config = useConfigStore();
-
-export interface Instance {
-  config: {
-    name: string;
-    runtime: {
-      minecraft: string;
-      mod_loader_type: "Fabric" | "Quilt" | "Forge" | "Neoforge" | undefined;
-      mod_loader_version: string | undefined;
-    };
-  };
-  installed: boolean;
-}
-
-interface InstanceGroup {
-  name: string;
-  instances: Instance[];
-}
 
 const props = defineProps<{
   // instances: InstanceGroup[], todo: group

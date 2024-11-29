@@ -3,53 +3,34 @@
     <div class="game-page-main">
       <div class="row-1">
         <div class="side-name">
-          <div
-            style="
+          <div style="
               display: flex;
               justify-content: space-between;
               align-items: center;
               height: 100%;
             ">
             <p style="margin-left: 4px">{{ $t("game.instances") }}</p>
-            <button
-              class="side-button"
-              @click="show.instanceManager = true"
-              style="margin-right: 6px">
+            <button class="side-button" @click="show.instanceManager = true" style="margin-right: 6px">
               <i class="chevron-right" style="font-size: 12px"></i>
             </button>
           </div>
         </div>
-        <Instances :instances="instances" @select="setCurrentInstance"></Instances>
-        <instance-manager
-          :show="show.instanceManager"
-          @close="show.instanceManager = false"
-          :instances="instances"
+        <instance-list :instances="instances" @select="setCurrentInstance"></instance-list>
+        <instance-manager :show="show.instanceManager" @close="show.instanceManager = false" :instances="instances"
           @update="update"></instance-manager>
       </div>
       <div class="row-2">
-        <install-progress
-          :installing="installing"
-          :instance-name="currentInstance.config.name"
-          :mod-loader-type="currentInstance.config.runtime.mod_loader_type"
-          :mod-loader-version="
-            currentInstance.config.runtime.mod_loader_version
-          "></install-progress>
-        <instance-info
-          :minecraft-version="currentInstance.config.runtime.minecraft"
+        <install-progress :installing="installing" :instance-name="currentInstance.config.name"
+          :mod-loader-type="currentInstance.config.runtime.mod_loader_type" :mod-loader-version="currentInstance.config.runtime.mod_loader_version
+            "></install-progress>
+        <instance-info :minecraft-version="currentInstance.config.runtime.minecraft"
           :mod-loader-type="currentInstance.config.runtime.mod_loader_type"
           :mod-loader-version="currentInstance.config.runtime.mod_loader_version"
-          :instance-name="currentInstance.config.name"
-          :installed="true"
-          :game-button-type="gameButtonType"
-          :button-loading="buttonLoading"
-          @game-button-click="gameButtonClick"
-          :error-type="errorType"></instance-info>
+          :instance-name="currentInstance.config.name" :installed="true" :game-button-type="gameButtonType"
+          :button-loading="buttonLoading" @game-button-click="gameButtonClick" :error-type="errorType"></instance-info>
         <assets-manager :instance="currentInstance" style="margin-top: 20px"></assets-manager>
       </div>
-      <LogViewer
-        :instance-name="currentInstance.config.name"
-        :visible="logViewerOpen"
-        @close="logViewerOpen = false">
+      <LogViewer :instance-name="currentInstance.config.name" :visible="logViewerOpen" @close="logViewerOpen = false">
       </LogViewer>
     </div>
   </keep-alive>
@@ -59,13 +40,14 @@
 import InstanceInfo from "@/components/InstanceInfo.vue";
 import AssetsManager from "@/components/AssetsManager.vue";
 import InstallProgress from "./dialogs/InstallProgress.vue";
-import Instances from "@/components/Instances.vue";
+import InstanceList from "@/components/InstanceList.vue";
 import InstanceManager from "@/pages/dialogs/InstanceManager.vue";
 import LogViewer from "./dialogs/LogViewer.vue";
 import { ref, type Ref } from "vue";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import { useConfigStore } from "@/store/config";
+import { Instance } from "@/types/instance";
 
 const config = useConfigStore();
 
@@ -73,18 +55,6 @@ const installing = ref(false);
 
 const buttonLoading = ref(false);
 const logViewerOpen = ref(false);
-
-interface Instance {
-  config: {
-    name: string;
-    runtime: {
-      minecraft: string;
-      mod_loader_type: "Fabric" | "Quilt" | "Forge" | "Neoforge" | undefined;
-      mod_loader_version: string | undefined;
-    };
-  };
-  installed: boolean;
-}
 
 const currentInstance = ref<Instance>({
   config: {

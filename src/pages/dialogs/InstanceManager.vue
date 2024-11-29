@@ -6,13 +6,10 @@
           <div style="display: flex; align-items: center">
             <div class="icon">
               <i class="boxes-stacked" v-if="currentComponent == pages.view"></i>
-              <i
-                class="arrow-left back"
-                v-if="currentComponent == pages.create"
-                @click="
-                  transitionName = 'slide-right';
-                  currentComponent = pages.view;
-                "></i>
+              <i class="arrow-left back" v-if="currentComponent == pages.create" @click="
+                transitionName = 'slide-right';
+              currentComponent = pages.view;
+              "></i>
             </div>
             <div>
               <h4 v-if="currentComponent == pages.view">
@@ -29,23 +26,17 @@
               </p>
             </div>
           </div>
-          <div
-            class="button"
-            style="position: absolute; right: 0"
-            @click="
-              currentComponent = pages.view;
-              $emit('close');
-            ">
+          <div class="button" style="position: absolute; right: 0" @click="
+            currentComponent = pages.view;
+          $emit('close');
+          ">
             <i></i>
           </div>
         </div>
 
         <div class="content">
           <Transition :name="transitionName" mode="out-in">
-            <component
-              :instances="props.instances"
-              :is="currentComponent"
-              @create="createInstance"
+            <component :instances="props.instances" :is="currentComponent" @create="createInstance"
               @created="instanceCreated"></component>
           </Transition>
           <!-- <div class="group" v-for="group in props.instances" :key="group.name">
@@ -64,26 +55,10 @@ import DialogVue from "@/components/Dialog.vue";
 import { markRaw, reactive, ref, shallowRef } from "vue";
 import View from "@/pages/dialogs/instance/View.vue";
 import Create from "@/pages/dialogs/instance/Create.vue";
+import { Instance } from "@/types/instance";
 
 const emit = defineEmits(["close", "update"]);
 const transitionName = ref("slide-left");
-
-interface Instance {
-  config: {
-    name: string;
-    runtime: {
-      minecraft: string;
-      mod_loader_type: "Fabric" | "Quilt" | "Forge" | "Neoforge" | undefined;
-      mod_loader_version: string | undefined;
-    };
-  };
-  installed: boolean;
-}
-
-interface InstanceGroup {
-  name: string;
-  instances: Instance[];
-}
 
 const props = defineProps<{
   show: boolean;
