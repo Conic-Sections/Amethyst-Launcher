@@ -159,7 +159,7 @@ pub async fn refresh_microsoft_account_by_uuid(uuid: String) -> Account {
         .unwrap()
         .emit("refresh_accounts_list", "")
         .unwrap();
-    return result.first().unwrap().clone();
+    result.first().unwrap().clone()
 }
 
 #[cfg(not(debug_assertions))]
