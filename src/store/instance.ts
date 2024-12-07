@@ -5,37 +5,37 @@
 import { defineStore } from "pinia"
 
 export type Instance = {
-  config: {
-    name: string
-    runtime: {
-      minecraft: string
-      mod_loader_type: "Fabric" | "Quilt" | "Forge" | "Neoforge" | null
-      mod_loader_version: string | null
+    config: {
+        name: string
+        runtime: {
+            minecraft: string
+            mod_loader_type: "Fabric" | "Quilt" | "Forge" | "Neoforge" | null
+            mod_loader_version: string | null
+        }
     }
-  }
-  installed: boolean
+    installed: boolean
 }
 
 type InstanceStore = {
-  currentInstance: Instance
-  instances: Instance[]
+    currentInstance: Instance
+    instances: Instance[]
 }
 
 export const useInstanceStore = defineStore("instance", {
-  state: (): InstanceStore => {
-    return {
-      currentInstance: {
-        config: {
-          name: "",
-          runtime: {
-            minecraft: "",
-            mod_loader_type: null,
-            mod_loader_version: "",
-          },
-        },
-        installed: true,
-      },
-      instances: [],
-    }
-  },
+    state: (): InstanceStore => {
+        return {
+            currentInstance: {
+                config: {
+                    name: "",
+                    runtime: {
+                        minecraft: "",
+                        mod_loader_type: null,
+                        mod_loader_version: "",
+                    },
+                },
+                installed: true,
+            },
+            instances: [],
+        }
+    },
 })

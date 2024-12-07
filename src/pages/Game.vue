@@ -26,9 +26,7 @@
         :button-loading="buttonLoading"
         @game-button-click="gameButtonClick"
         :error-type="errorType"></instance-card>
-      <assets-manager
-        style="margin-top: 16px"
-        @update-instance-list="update"></assets-manager>
+      <assets-manager style="margin-top: 16px" @update-instance-list="update"></assets-manager>
     </div>
   </div>
 </template>
