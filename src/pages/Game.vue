@@ -3,57 +3,34 @@
     <div class="game-page-main">
       <div class="row-1">
         <div class="side-name">
-          <div
-            style="
+          <div style="
               display: flex;
               justify-content: space-between;
               align-items: center;
               height: 100%;
             ">
             <p style="margin-left: 4px">{{ $t("game.instances") }}</p>
-            <button
-              class="side-button"
-              @click="show.instanceManager = true"
-              style="margin-right: 6px">
+            <button class="side-button" @click="show.instanceManager = true" style="margin-right: 6px">
               <i class="chevron-right" style="font-size: 12px"></i>
             </button>
           </div>
         </div>
         <instance-list :instances="instances" @select="setCurrentInstance"></instance-list>
-        <instance-manager
-          :show="show.instanceManager"
-          @close="show.instanceManager = false"
-          :instances="instances"
+        <instance-manager :show="show.instanceManager" @close="show.instanceManager = false" :instances="instances"
           @update="update"></instance-manager>
       </div>
       <div class="row-2">
-        <install-progress
-          :installing="installing"
-          :instance-name="currentInstance.config.name"
-          :mod-loader-type="currentInstance.config.runtime.mod_loader_type"
-          :mod-loader-version="
-            currentInstance.config.runtime.mod_loader_version
-          "></install-progress>
-        <instance-card
-          :minecraft-version="currentInstance.config.runtime.minecraft"
+        <install-progress :installing="installing" :instance-name="currentInstance.config.name"
+          :mod-loader-type="currentInstance.config.runtime.mod_loader_type" :mod-loader-version="currentInstance.config.runtime.mod_loader_version
+            "></install-progress>
+        <instance-card :minecraft-version="currentInstance.config.runtime.minecraft"
           :mod-loader-type="currentInstance.config.runtime.mod_loader_type"
           :mod-loader-version="currentInstance.config.runtime.mod_loader_version"
-          :instance-name="currentInstance.config.name"
-          :installed="true"
-          :game-button-type="gameButtonType"
-          :button-loading="buttonLoading"
-          @game-button-click="gameButtonClick"
-          :error-type="errorType"></instance-card>
-        <assets-manager
-          :instance="currentInstance"
-          style="margin-top: 16px"
+          :instance-name="currentInstance.config.name" :installed="true" :game-button-type="gameButtonType"
+          :button-loading="buttonLoading" @game-button-click="gameButtonClick" :error-type="errorType"></instance-card>
+        <assets-manager :instance="currentInstance" style="margin-top: 16px"
           @update-instance-list="update"></assets-manager>
       </div>
-      <LogViewer
-        :instance-name="currentInstance.config.name"
-        :visible="logViewerOpen"
-        @close="logViewerOpen = false">
-      </LogViewer>
     </div>
   </keep-alive>
 </template>
@@ -64,7 +41,6 @@ import AssetsManager from "./game/AssetsManager.vue";
 import InstallProgress from "./dialogs/InstallProgress.vue";
 import InstanceList from "./game/InstanceList.vue";
 import InstanceManager from "@/pages/dialogs/InstanceManager.vue";
-import LogViewer from "./dialogs/LogViewer.vue";
 import { onMounted, ref, watch, type Ref } from "vue";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
@@ -76,7 +52,6 @@ const config = useConfigStore();
 const installing = ref(false);
 
 const buttonLoading = ref(false);
-const logViewerOpen = ref(false);
 
 const currentInstance = ref<Instance>({
   config: {
@@ -165,9 +140,6 @@ function setCurrentInstance(instance: Instance) {
 function gameButtonClick() {
   if (gameButtonType.value === "launch") {
     buttonLoading.value = true;
-    if (config.accessibility.open_log_viewer) {
-      logViewerOpen.value = true;
-    }
     invoke("launch", {
       instanceName: currentInstance.value.config.name,
     });
