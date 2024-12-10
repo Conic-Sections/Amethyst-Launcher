@@ -35,8 +35,7 @@ body:
   - type: textarea
     id: continue_use
     attributes:
-      label: Continue use
-      description: Is this feature a reason for you to continue using Amethyst Launcher?
+      label: Is this feature a reason for you to continue using Amethyst Launcher?
 
   - type: textarea
     id: context
