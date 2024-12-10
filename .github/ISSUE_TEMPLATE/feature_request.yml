@@ -35,7 +35,8 @@ body:
   - type: textarea
     id: alternatives
     attributes:
-      label: Is this feature a reason for you to continue using Amethyst Launcher?
+      label: Continue use
+      description: Is this feature a reason for you to continue using Amethyst Launcher?
 
   - type: textarea
     id: context
