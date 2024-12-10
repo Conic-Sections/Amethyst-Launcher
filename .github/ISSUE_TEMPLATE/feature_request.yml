@@ -33,12 +33,13 @@ body:
       description: "Any alternative solutions you've considered"
 
   - type: textarea
-    id: continue_use
-    attributes:
-      label: Is this feature a reason for you to continue using Amethyst Launcher?
-
-  - type: textarea
     id: context
     attributes:
       label: Additional context
       description: Add any other context about the problem here.
+
+  - type: textarea
+    id: continue_use
+    attributes:
+      label: Is this feature a reason for you to continue using Amethyst Launcher?
+
