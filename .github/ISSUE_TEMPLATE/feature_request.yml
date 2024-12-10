@@ -33,7 +33,7 @@ body:
       description: "Any alternative solutions you've considered"
 
   - type: textarea
-    id: continue use
+    id: continue_use
     attributes:
       label: Continue use
       description: Is this feature a reason for you to continue using Amethyst Launcher?
