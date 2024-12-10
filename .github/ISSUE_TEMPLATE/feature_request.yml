@@ -33,6 +33,11 @@ body:
       description: "Any alternative solutions you've considered"
 
   - type: textarea
+    id: alternatives
+    attributes:
+      label: Is this feature a reason for you to continue using Amethyst Launcher?
+
+  - type: textarea
     id: context
     attributes:
       label: Additional context
