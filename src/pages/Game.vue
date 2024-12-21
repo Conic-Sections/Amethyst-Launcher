@@ -2,42 +2,31 @@
   <div class="game-page-main">
     <div class="row-1">
       <div class="side-name">
-        <div
-          style="display: flex; justify-content: space-between; align-items: center; height: 100%">
+        <div style="display: flex; justify-content: space-between; align-items: center; height: 100%">
           <p style="margin-left: 4px">{{ $t("game.instances") }}</p>
-          <button
-            class="side-button"
-            @click="show.instanceManager = true"
-            style="margin-right: 6px">
+          <button class="side-button" @click="show.instanceManager = true" style="margin-right: 6px">
             <i class="chevron-right" style="font-size: 12px"></i>
           </button>
         </div>
       </div>
       <instance-list @select="setCurrentInstance"></instance-list>
-      <instance-manager
-        :show="show.instanceManager"
-        @close="show.instanceManager = false"
+      <instance-manager :show="show.instanceManager" @close="show.instanceManager = false"
         @update="update"></instance-manager>
     </div>
     <div class="row-2">
-      <install-progress :visible="installing"></install-progress>
-      <instance-card
-        :game-button-type="gameButtonType"
-        :button-loading="buttonLoading"
-        @game-button-click="gameButtonClick"
+      <instance-card :button-loading="buttonLoading" @launch="launch" @install="install"
         :error-type="errorType"></instance-card>
-      <assets-manager style="margin-top: 16px" @update-instance-list="update"></assets-manager>
+      <instance-details style="margin-top: 16px" @update-instance-list="update"></instance-details>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import InstanceCard from "./game/InstanceCard.vue";
-import AssetsManager from "./game/AssetsManager.vue";
-import InstallProgress from "./dialogs/InstallProgress.vue";
+import InstanceDetails from "./game/InstanceDetails.vue";
 import InstanceList from "./game/InstanceList.vue";
 import InstanceManager from "@/pages/dialogs/InstanceManager.vue";
-import { computed, onMounted, ref, watch, type Ref } from "vue";
+import { onMounted, ref, watch, type Ref } from "vue";
 import { invoke } from "@tauri-apps/api/core";
 import { listen } from "@tauri-apps/api/event";
 import { useConfigStore } from "@/store/config";
@@ -51,13 +40,6 @@ const buttonLoading = ref(false);
 
 const show = ref({
   instanceManager: false,
-});
-const gameButtonType = computed(() => {
-  if (instanceStore.currentInstance.installed) {
-    return "launch";
-  } else {
-    return "install";
-  }
 });
 const errorType: Ref<"launch" | "install" | undefined> = ref();
 
@@ -122,17 +104,21 @@ function setCurrentInstance(instance: Instance) {
   });
 }
 
-function gameButtonClick() {
-  if (gameButtonType.value === "launch") {
-    buttonLoading.value = true;
-    invoke("launch", {
-      instance: instanceStore.currentInstance,
-    });
-  } else if (gameButtonType.value === "install") {
-    installing.value = true;
-    invoke("install", { instance: instanceStore.currentInstance });
-  }
-}
+const install = () => {
+  installing.value = true;
+  instanceStore.installProgress.set(instanceStore.currentInstance.config.name, {
+    step: 0,
+    completed: 0,
+    total: 0,
+  });
+  invoke("install", { instance: instanceStore.currentInstance });
+};
+const launch = () => {
+  buttonLoading.value = true;
+  invoke("launch", {
+    instance: instanceStore.currentInstance,
+  });
+};
 
 listen("install_success", () => {
   setTimeout(() => {
