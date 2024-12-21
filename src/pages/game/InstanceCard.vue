@@ -1,6 +1,8 @@
 <template>
   <div class="instance-card" :class="expand ? '' : 'instance-card-unexpand'" :style="banner">
-    <div v-if="expand" style="
+    <div
+      v-if="expand"
+      style="
         position: absolute;
         width: 100%;
         height: 100%;
@@ -21,8 +23,14 @@
         <div class="mod-loader-version" v-if="modLoaderType && modLoaderVersion">
           <img src="@/assets/images/fabric.webp" fill="#fff" v-if="modLoaderType === 'Fabric'" />
           <img src="@/assets/images/quilt.svg" fill="#fff" v-if="modLoaderType === 'Quilt'" />
-          <img src="@/assets/images/neoforged.png" fill="#fff" v-if="modLoaderType === 'Neoforge'" />
-          <img src="@/assets/images/Anvil_JE3_BE3.webp" fill="#fff" v-if="modLoaderType === 'Forge'" />
+          <img
+            src="@/assets/images/neoforged.png"
+            fill="#fff"
+            v-if="modLoaderType === 'Neoforge'" />
+          <img
+            src="@/assets/images/Anvil_JE3_BE3.webp"
+            fill="#fff"
+            v-if="modLoaderType === 'Forge'" />
           {{ modLoaderType }} {{ modLoaderVersion }}
         </div>
       </div>
@@ -39,13 +47,20 @@
         <i class="button gear"></i>
         <i class="button circle-info"></i>
         <i class="button star" id="star" @click="star"></i>
-        <button class="game-button" :class="`${gameButtonType}-game-button`" @click="$emit(gameButtonType)"
+        <button
+          class="game-button"
+          :class="`${gameButtonType}-game-button`"
+          @click="$emit(gameButtonType)"
           v-if="!buttonLoading">
-          <i :class="gameButtonType"
-            style="font-family: fa-pro; font-style: normal; margin-right: 5px; font-weight: 100"></i>{{ gameButtonText
-          }}
+          <i
+            :class="gameButtonType"
+            style="font-family: fa-pro; font-style: normal; margin-right: 5px; font-weight: 100"></i
+          >{{ gameButtonText }}
         </button>
-        <button class="game-button loading" :class="`${gameButtonType}-game-button`" v-if="buttonLoading">
+        <button
+          class="game-button loading"
+          :class="`${gameButtonType}-game-button`"
+          v-if="buttonLoading">
           <item-loading-icon status="in-progress"></item-loading-icon>
         </button>
       </div>

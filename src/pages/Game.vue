@@ -2,19 +2,28 @@
   <div class="game-page-main">
     <div class="row-1">
       <div class="side-name">
-        <div style="display: flex; justify-content: space-between; align-items: center; height: 100%">
+        <div
+          style="display: flex; justify-content: space-between; align-items: center; height: 100%">
           <p style="margin-left: 4px">{{ $t("game.instances") }}</p>
-          <button class="side-button" @click="show.instanceManager = true" style="margin-right: 6px">
+          <button
+            class="side-button"
+            @click="show.instanceManager = true"
+            style="margin-right: 6px">
             <i class="chevron-right" style="font-size: 12px"></i>
           </button>
         </div>
       </div>
       <instance-list @select="setCurrentInstance"></instance-list>
-      <instance-manager :show="show.instanceManager" @close="show.instanceManager = false"
+      <instance-manager
+        :show="show.instanceManager"
+        @close="show.instanceManager = false"
         @update="update"></instance-manager>
     </div>
     <div class="row-2">
-      <instance-card :button-loading="buttonLoading" @launch="launch" @install="install"
+      <instance-card
+        :button-loading="buttonLoading"
+        @launch="launch"
+        @install="install"
         :error-type="errorType"></instance-card>
       <instance-details style="margin-top: 16px" @update-instance-list="update"></instance-details>
     </div>

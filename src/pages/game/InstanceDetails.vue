@@ -1,16 +1,25 @@
 <template>
   <div class="instance-details">
-    <tabs v-if="instanceStore.currentInstance.installed" :tabs="components.map((n) => {
-      return i18n.t(n.name);
-    })
-      " :active="activeTab" :icons="components.map((n) => {
-        return n.icon;
-      })
-        " @choose-tab="chooseTab">
+    <tabs
+      v-if="instanceStore.currentInstance.installed"
+      :tabs="
+        components.map((n) => {
+          return i18n.t(n.name);
+        })
+      "
+      :active="activeTab"
+      :icons="
+        components.map((n) => {
+          return n.icon;
+        })
+      "
+      @choose-tab="chooseTab">
     </tabs>
     <tabs v-else :tabs="['Install Progress']" :icons="['folder-arrow-down']" :active="0"> </tabs>
     <Transition :name="transitionName" mode="out-in">
-      <component :is="currentComponent" style="padding: 16px 8px; width: 100%; height: fit-content"
+      <component
+        :is="currentComponent"
+        style="padding: 16px 8px; width: 100%; height: fit-content"
         @update-instance-list="$emit('update-instance-list')"></component>
     </Transition>
     <!-- <worlds :show="show.worlds" :datas="saves" :instance-name="instance.config.name" @close="show.worlds = false"> -->
@@ -95,16 +104,16 @@ const currentComponent = computed(() => {
   width: 100%;
   overflow-x: hidden;
 
-  >div {
+  > div {
     display: flex;
     width: 100%;
   }
 
-  >div.first-row {
+  > div.first-row {
     margin-right: 5px;
   }
 
-  >div.second-row {
+  > div.second-row {
     margin-left: 5px;
   }
 }

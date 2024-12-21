@@ -1,37 +1,60 @@
 <template>
   <div class="install-progress-vue">
     <div class="progress-card" v-if="installing">
-      <div class="step" :style="getVersionInfoStatus == 'success' || getVersionInfoStatus == 'pending'
-          ? 'opacity: 0.8'
-          : 'background: rgba(255, 255, 255, 0.08);'
+      <div
+        class="step"
+        :style="
+          getVersionInfoStatus == 'success' || getVersionInfoStatus == 'pending'
+            ? 'opacity: 0.8'
+            : 'background: rgba(255, 255, 255, 0.08);'
         ">
         <item-loading-icon :status="getVersionInfoStatus"></item-loading-icon>
         <p>获取版本信息</p>
       </div>
-      <div class="step" :style="checkExistFilesStatus == 'success' || checkExistFilesStatus == 'pending'
-          ? 'opacity: 0.8'
-          : 'background: rgba(255, 255, 255, 0.08)'
+      <div
+        class="step"
+        :style="
+          checkExistFilesStatus == 'success' || checkExistFilesStatus == 'pending'
+            ? 'opacity: 0.8'
+            : 'background: rgba(255, 255, 255, 0.08)'
         ">
         <item-loading-icon :status="checkExistFilesStatus"></item-loading-icon>
         <p>检查已有游戏文件</p>
-        <i style="font-size: 13px; margin-left: auto; opacity: 0.7" v-if="checkExistFilesStatus == 'in-progress'">已检查 {{
-          tweened.number.toFixed(0) }} 个文件</i>
+        <i
+          style="font-size: 13px; margin-left: auto; opacity: 0.7"
+          v-if="checkExistFilesStatus == 'in-progress'"
+          >已检查 {{ tweened.number.toFixed(0) }} 个文件</i
+        >
       </div>
-      <div class="step" :style="downloadVanillaGameStatus == 'success' || downloadVanillaGameStatus == 'pending'
-          ? 'opacity: 0.8'
-          : 'background: rgba(255, 255, 255, 0.08)'
+      <div
+        class="step"
+        :style="
+          downloadVanillaGameStatus == 'success' || downloadVanillaGameStatus == 'pending'
+            ? 'opacity: 0.8'
+            : 'background: rgba(255, 255, 255, 0.08)'
         ">
         <item-loading-icon :status="downloadVanillaGameStatus"></item-loading-icon>
         <p>下载原版游戏文件</p>
-        <progress-bar v-if="installProgress.step == 3" width="260" style="margin-left: auto" :loading="false"
-          :value="installProgress.completed.toString()" :total="installProgress.total.toString()"></progress-bar>
-        <i v-if="installProgress.step == 3" style="min-width: 146px; text-align: right; font-size: 13px; opacity: 0.7">
+        <progress-bar
+          v-if="installProgress.step == 3"
+          width="260"
+          style="margin-left: auto"
+          :loading="false"
+          :value="installProgress.completed.toString()"
+          :total="installProgress.total.toString()"></progress-bar>
+        <i
+          v-if="installProgress.step == 3"
+          style="min-width: 146px; text-align: right; font-size: 13px; opacity: 0.7">
           已下载 {{ installProgress.completed }} 个文件，共 {{ installProgress.total }} 个
         </i>
       </div>
-      <div class="step" v-if="!!modLoaderType" :style="installModLoaderStatus == 'success' || installModLoaderStatus == 'pending'
-          ? 'opacity: 0.8'
-          : 'background: rgba(255, 255, 255, 0.08)'
+      <div
+        class="step"
+        v-if="!!modLoaderType"
+        :style="
+          installModLoaderStatus == 'success' || installModLoaderStatus == 'pending'
+            ? 'opacity: 0.8'
+            : 'background: rgba(255, 255, 255, 0.08)'
         ">
         <item-loading-icon :status="installModLoaderStatus"></item-loading-icon>
         <p>安装 {{ modLoaderType }}</p>
@@ -181,7 +204,7 @@ watch(installProgress, (n) => {
   height: 100%;
 }
 
-.install-progress-vue>div {
+.install-progress-vue > div {
   width: 100%;
   padding: 10px;
   background: var(--card-background);
