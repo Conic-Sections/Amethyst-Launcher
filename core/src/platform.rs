@@ -2,8 +2,9 @@
 // Copyright 2022-2026 Broken-Deer and contributors. All rights reserved.
 // SPDX-License-Identifier: GPL-3.0-only
 
+use log::trace;
 use serde::{Deserialize, Serialize};
-use std::process::Command;
+use std::{process::Command, time::Instant};
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq)]
 pub enum OsType {
@@ -28,6 +29,7 @@ pub const DELIMITER: &str = ":";
 impl PlatformInfo {
     /// get platform information
     pub fn new() -> Self {
+        let start = Instant::now();
         let os_type = if cfg!(target_os = "windows") {
             OsType::Windows
         } else if cfg!(target_os = "linux") {
@@ -37,7 +39,7 @@ impl PlatformInfo {
         } else {
             panic!("Sorry, but this program does not support your system!")
         };
-        Self {
+        let platform_info = Self {
             name: match os_type {
                 OsType::Windows => "windows".to_string(),
                 OsType::Linux => "linux".to_string(),
@@ -87,6 +89,8 @@ impl PlatformInfo {
                 "unknown"
             }
             .to_string(),
-        }
+        };
+        println!("Time to obtain system information: {:?}", start.elapsed());
+        platform_info
     }
 }
