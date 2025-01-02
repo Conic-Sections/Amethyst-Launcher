@@ -2,8 +2,9 @@
 // Copyright 2022-2026 Broken-Deer and contributors. All rights reserved.
 // SPDX-License-Identifier: GPL-3.0-only
 
-use log::trace;
 use serde::{Deserialize, Serialize};
+#[cfg(windows)]
+use std::os::windows::process::CommandExt;
 use std::{process::Command, time::Instant};
 
 #[derive(Debug, Clone, Deserialize, Serialize, PartialEq)]
