@@ -14,7 +14,7 @@ use crate::folder::MinecraftLocation;
 
 use crate::PLATFORM_INFO;
 
-static DEFAULT_GAME_ARGS: Lazy<Vec<String>> = Lazy::new(|| {
+static _DEFAULT_GAME_ARGS: Lazy<Vec<String>> = Lazy::new(|| {
     vec![
         "--username".to_string(),
         "${auth_player_name}".to_string(),
@@ -45,7 +45,7 @@ static DEFAULT_GAME_ARGS: Lazy<Vec<String>> = Lazy::new(|| {
     ]
 });
 
-static DEFAULT_JVM_ARGS: Lazy<Vec<String>> = Lazy::new(|| {
+static _DEFAULT_JVM_ARGS: Lazy<Vec<String>> = Lazy::new(|| {
     vec![
         "\"-Djava.library.path=${natives_directory}\"".to_string(),
         // "\"-Djna.tmpdir=${natives_directory}\"".to_string(),
@@ -247,10 +247,7 @@ fn resolve_argument(argument: &Value, enabled_features: &Vec<String>) -> Vec<Str
     let allow = check_allowed(rules, enabled_features);
     if allow {
         if argument["value"].is_array() {
-            match serde_json::from_value::<Vec<String>>(argument["value"].clone()) {
-                Ok(x) => x,
-                _ => vec![],
-            }
+            serde_json::from_value::<Vec<String>>(argument["value"].clone()).unwrap_or_default()
         } else if argument["value"].is_string() {
             match argument["value"].as_str() {
                 Some(x) => vec![x.to_string()],
@@ -744,20 +741,12 @@ fn check_os(rule: &Value) -> bool {
 fn check_features(rule: &Value, enabled_features: &Vec<String>) -> bool {
     if let Some(features) = rule["features"].as_object() {
         let mut enabled_features_iter = enabled_features.into_iter();
-        let features_enabled = features
-            .into_iter()
-            .filter(|x| {
-                enabled_features_iter.find(|y| x.0 == *y).is_some()
-                    && if let Some(value) = x.1.as_bool() {
-                        value
-                    } else {
-                        false
-                    }
-            })
+        features
+            .iter()
+            .filter(|x| enabled_features_iter.any(|y| x.0 == y) && x.1.as_bool().unwrap_or(false))
             .collect::<Vec<_>>()
             .len()
-            == features.len();
-        features_enabled
+            == features.len()
     } else {
         true
     }
