@@ -213,7 +213,7 @@ pub struct Arguments {
 }
 
 impl Arguments {
-    fn resolve(&self, enabled_features: &Vec<String>) -> ResolvedArguments {
+    fn resolve(&self, enabled_features: &[String]) -> ResolvedArguments {
         let mut resolved_game_args = vec![];
         let mut resolved_jvm_args = vec![];
         if let Some(game_args) = &self.game {
@@ -233,7 +233,7 @@ impl Arguments {
     }
 }
 
-fn resolve_argument(argument: &Value, enabled_features: &Vec<String>) -> Vec<String> {
+fn resolve_argument(argument: &Value, enabled_features: &[String]) -> Vec<String> {
     if argument.is_string() {
         match argument.as_str() {
             Some(x) => return vec![x.to_string()],
@@ -378,7 +378,7 @@ impl ResolvedVersion {
     fn join_arguments(
         &mut self,
         arguments: Option<Arguments>,
-        enabled_features: &Vec<String>,
+        enabled_features: &[String],
     ) -> &mut Self {
         if let Some(arguments) = arguments {
             let resolved = arguments.resolve(enabled_features);
@@ -516,7 +516,7 @@ impl Version {
     pub async fn parse(
         &self,
         minecraft: &MinecraftLocation,
-        enabled_features: &Vec<String>,
+        enabled_features: &[String],
     ) -> Result<ResolvedVersion> {
         let mut inherits_from = self.inherits_from.clone();
         let versions_folder = &minecraft.versions;
@@ -595,7 +595,7 @@ pub struct ResolvedLibrary {
 
 async fn resolve_libraries(
     libraries: Vec<Value>,
-    enabled_features: &Vec<String>,
+    enabled_features: &[String],
 ) -> Vec<ResolvedLibrary> {
     let mut result = Vec::new();
     for library in libraries {
@@ -687,7 +687,7 @@ async fn resolve_libraries(
 }
 
 /// Check if all the rules in Rule[] are acceptable in certain OS platform and features.
-fn check_allowed(rules: Vec<Value>, enabled_features: &Vec<String>) -> bool {
+fn check_allowed(rules: Vec<Value>, enabled_features: &[String]) -> bool {
     // by default it's allowed
     if rules.is_empty() {
         return true;
@@ -738,9 +738,9 @@ fn check_os(rule: &Value) -> bool {
     }
 }
 
-fn check_features(rule: &Value, enabled_features: &Vec<String>) -> bool {
+fn check_features(rule: &Value, enabled_features: &[String]) -> bool {
     if let Some(features) = rule["features"].as_object() {
-        let mut enabled_features_iter = enabled_features.into_iter();
+        let mut enabled_features_iter = enabled_features.iter();
         features
             .iter()
             .filter(|x| enabled_features_iter.any(|y| x.0 == y) && x.1.as_bool().unwrap_or(false))
